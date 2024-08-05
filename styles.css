@@ -1,3 +1,4 @@
+/* Regole generali */
 :root {
     --foreground-rgb: 0, 18, 11;
     --background-start-rgb: 53, 96, 90;
@@ -7,9 +8,9 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-    --foreground-rgb: 221, 216, 184;
-    --background-start-rgb: 0, 18, 11;
-    --background-end-rgb: 0, 18, 11;
+        --foreground-rgb: 221, 216, 184;
+        --background-start-rgb: 0, 18, 11;
+        --background-end-rgb: 0, 18, 11;
     }
 }
 
@@ -26,7 +27,6 @@ body {
     align-content: center;
     overflow: hidden;
 }
-
 
 section {
     display: flex;
@@ -155,7 +155,7 @@ section {
     object-fit: cover; 
     margin-top: 20px; 
 }
-  
+
 h1 {
     margin: 0;
     font-size: 2em;
@@ -216,4 +216,77 @@ nav ul li a:hover {
     background-color: #6b818c;
 }
 
+/* Media queries per la responsività */
+@media (max-width: 768px) {
+    .form {
+        padding: 20px;
+        padding-right: 20px;
+    }
 
+    .formLogo {
+        padding-top: 20px;
+        padding-right: 0;
+        max-width: 120px;
+    }
+
+    .formPhoto {
+        width: 150px;
+        height: 150px;
+    }
+
+    .container {
+        min-height: 400px;
+        max-height: 500px;
+        border-radius: 30px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h4, p {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .first, .second {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 10px;
+        padding-right: 10px;
+    }
+
+    .formLogo {
+        padding-top: 10px;
+        max-width: 100px;
+    }
+
+    .formPhoto {
+        width: 100px;
+        height: 100px;
+    }
+
+    .container {
+        min-height: 300px;
+        max-height: 400px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    h4, p {
+        font-size: 0.9em;
+        max-width: 100%;
+    }
+}
