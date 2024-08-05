@@ -240,8 +240,8 @@ nav ul li a:hover {
     }
 
     .container {
-        min-height: 70%px;
-        max-height: 90%px;
+        min-height: 80%px;
+        max-height: 95%px;
         border-radius: 30px;
     }
 
@@ -287,8 +287,8 @@ nav ul li a:hover {
     }
 
     .container {
-        min-height: 70%px;
-        max-height: 90%px;
+        min-height: 80%px;
+        max-height: 95%px;
     }
 
     h1 {
