@@ -98,7 +98,7 @@
         .schedule::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 30px;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -110,19 +110,23 @@
             font-size: 1.2rem;
             color: #e0e0e0;
             position: relative;
-            padding-left: 80px;
+            padding-left: 90px;
             text-align: left;
         }
         
         .schedule li::before {
             content: '';
+            background-color: #1a1a1a;
+            background-size: 40px 40px;
+            background-repeat: no-repeat;
+            background-position: center;
             position: absolute;
             left: 0;
             top: 0;
-            background: #800080;
+            border: 2px solid #800080;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -131,15 +135,19 @@
         }
         
         .schedule li:nth-child(1)::before {
-            content: '💍';
+            background-image: url('icons8-people-100.png');
         }
         
         .schedule li:nth-child(2)::before {
-            content: '🍸';
+            background-image: url('icons8-wedding-rings-100.png');
         }
         
         .schedule li:nth-child(3)::before {
-            content: '🍰';
+            background-image: url('icons8-buffet-breakfast-100.png');
+        }
+        
+        .schedule li:nth-child(4)::before {
+            background-image: url('icons8-wedding-cake-100.png');
         }
         
         .content {
@@ -205,10 +213,10 @@
                 height: 150px;
             }
             .schedule li {
-                padding-left: 70px;
+                padding-left: 80px;
             }
             .schedule::before {
-                left: 15px;
+                left: 25px;
             }
         }
     </style>
@@ -218,7 +226,7 @@
         <img src="your-image.jpg" alt="Foto della coppia" class="couple-photo">
         <div>
             <h1>Alvise & Clarissa</h1>
-            <p class="subtitle">Un Amore che Sfida le Tenebre</p>
+            <p class="subtitle">Amore nell'Oscurità Eterna</p>
             <p class="date">31 Ottobre 2026</p>
         </div>
     </header>
@@ -228,17 +236,17 @@
         <div class="content">
             <img src="your-image2.jpg" alt="Luogo">
             <div class="celebration-text">
-                <p>La nostra cerimonia e festa saranno un'esperienza unica, lontana dalle tradizioni convenzionali, ma che ci rappresenta appieno.</p>
+                <p>La nostra cerimonia e festa saranno un'esperienza lontana dalle tradizioni convenzionali, ma che ci rappresenta appieno.</p>
                 <p>Siamo felici di condividere questo momento speciale con la nostra famiglia e i nostri amici più cari.</p>
-                <p>Un ringraziamento di cuore a tutti coloro che ci accompagneranno in questo viaggio d'amore.</p>
+                <p>Un ringraziamento di cuore a tutti coloro che ci accompagneranno in questo giorno.</p>
                 <p>Vi preghiamo di confermare la vostra presenza entro i primi di settembre.</p>
-                <button>RSVP</button>
+                <button>CONDIVIDI LE FOTO DELLA CERIMONIA</button>
             </div>
         </div>
     </section>
     
     <section>
-        <h2>Location</h2>
+        <h2>Luogo</h2>
         <div class="content">
             <div>
                 <p><strong>Luogo:</strong> Grande Sala da Ballo, Centro Città</p>
@@ -252,9 +260,10 @@
     <section>
         <h2>Programma della Giornata</h2>
         <ul class="schedule">
+            <li><strong>16:30:</strong> Arrivo Ospiti - Benvenuti e accomodatevi ai vostri posti</li>
             <li><strong>17:00:</strong> Inizio Cerimonia - Celebriamo l'inizio del nostro amore eterno.</li>
-            <li><strong>18:00:</strong> Inizio Aperitivo + Buffet - Momenti di relax e delizie culinarie.</li>
-            <li><strong>21:00:</strong> Taglio della Torta - Dolce conclusione della serata.</li>
+            <li><strong>18:00:</strong> Inizio Aperitivo + Buffet - Momenti di conversazione, brindisi e prelibatezze culinarie.</li>
+            <li><strong>21:00:</strong> Taglio della Torta - Dolce, ringraziamenti e conclusione della serata.</li>
         </ul>
     </section>
     
