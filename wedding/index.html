@@ -3,282 +3,938 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Nostro Matrimonio</title>
+    <title>Alvise & Clarissa - 7 Novembre 2026</title>
     <link rel="icon" href="icons/icons8-wedding-rings-100.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #0a0908;
+            --bg-card: #151311;
+            --bg-card-hover: #1c1a18;
+            --gold: #c9a227;
+            --gold-light: #e8d5a3;
+            --burgundy: #722f37;
+            --burgundy-light: #8b3a42;
+            --rust: #b7410e;
+            --text: #d4c5b0;
+            --text-muted: #8a8279;
+            --border: #2d2a26;
+            --shadow: rgba(0,0,0,0.5);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
-        body {
-            font-family: 'Playfair Display', serif;
-            color: #e0e0e0;
-            background-color: #0d0d0d;
-            background-image: radial-gradient(circle, rgba(50,0,50,0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
+
+        html {
+            scroll-behavior: smooth;
         }
-        
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text);
+            background-color: var(--bg-dark);
+            line-height: 1.7;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(114, 47, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201, 162, 39, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(183, 65, 14, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Floating leaves animation */
+        .leaf {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1000;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .leaf:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .leaf:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header / Hero */
         header {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('your-hero-image.jpg') center/cover;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #f0f0f0;
             position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+            padding: 40px 20px;
+            background:
+                linear-gradient(to bottom, rgba(10,9,8,0.4) 0%, rgba(10,9,8,0.7) 60%, var(--bg-dark) 100%),
+                url('zumelle.jpg') center/cover no-repeat;
         }
-        
-        .couple-photo {
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        /* Photo Carousel */
+        .photo-carousel {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto 2rem;
+        }
+
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-track .couple-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow:
+                0 0 40px rgba(201, 162, 39, 0.3),
+                inset 0 0 30px rgba(0,0,0,0.5);
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            animation: photoFloat 6s ease-in-out infinite;
+        }
+
+        .carousel-track .couple-photo.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--gold);
+        }
+
+        @media (max-width: 600px) {
+            .photo-carousel {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        /* Old photo class - kept for compatibility */
+        .couple-photo-old {
             width: 350px;
             height: 350px;
             border-radius: 50%;
-            border: 5px solid #800080;
-            box-shadow: 0 0 20px rgba(128,0,128,0.8);
+            border: 3px solid var(--gold);
+            box-shadow:
+                0 0 40px rgba(201, 162, 39, 0.3),
+                inset 0 0 30px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+            object-fit: cover;
+            animation: photoFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            color: var(--gold-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(201, 162, 39, 0.3);
+        }
+
+        h1 .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--gold);
+            display: block;
+            font-size: 0.4em;
+            letter-spacing: 0.3em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-muted);
             margin-bottom: 2rem;
         }
-        
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 5rem;
-            margin-bottom: 1rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+
+        .date-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--border);
+            background: rgba(21, 19, 17, 0.8);
+            backdrop-filter: blur(10px);
         }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+
+        .date-display .day {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1;
         }
-        
-        .date {
-            font-size: 2rem;
-            font-weight: 400;
-            margin-top: 1rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+
+        .date-display .date-details {
+            text-align: left;
         }
-        
+
+        .date-display .month {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--text);
+            letter-spacing: 0.2em;
+        }
+
+        .date-display .year {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Sections */
         section {
             padding: 80px 20px;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            background-color: #1a1a1a;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
-            border: 1px solid #333;
         }
-        
+
         h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 50px;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 400;
-            color: #c0c0c0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            text-align: center;
+            color: var(--gold-light);
+            margin-bottom: 1rem;
+            letter-spacing: 0.15em;
         }
-        
+
+        .section-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 0 auto 3rem;
+        }
+
+        /* Countdown */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-top: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            width: 24px;
+            height: 24px;
+            opacity: 0.8;
+        }
+
+        /* Schedule */
         .schedule {
             list-style: none;
             padding: 0;
-            text-align: left;
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
         }
-        
-        .schedule::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #800080, #4B0082);
+
+        .schedule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .schedule li {
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            position: relative;
-            padding-left: 90px;
-            text-align: left;
+
+        .schedule-item:last-child {
+            border-bottom: none;
         }
-        
-        .schedule li::before {
-            content: '';
-            background-color: #1a1a1a;
-            background-size: 40px 40px;
-            background-repeat: no-repeat;
-            background-position: center;
-            position: absolute;
-            left: 0;
-            top: 0;
-            border: 2px solid #800080;
+
+        .schedule-time {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            min-width: 80px;
+        }
+
+        .schedule-details h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .schedule-details p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Location */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .location-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .location-info strong {
+            color: var(--gold-light);
+        }
+
+        .map-container {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        /* Dress Code */
+        .dress-code-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .dress-code-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dress-code-colors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .color-swatch {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.7rem;
             color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
-        
-        .schedule li:nth-child(1)::before {
-            background-image: url('icons/icons8-people-100.png');
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+            border-color: var(--gold);
         }
-        
-        .schedule li:nth-child(2)::before {
-            background-image: url('icons/icons8-wedding-rings-100.png');
+
+        .note {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--gold);
         }
-        
-        .schedule li:nth-child(3)::before {
-            background-image: url('icons/icons8-buffet-breakfast-100.png');
+
+        /* RSVP */
+        .rsvp-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
         }
-        
-        .schedule li:nth-child(4)::before {
-            background-image: url('icons/icons8-wedding-cake-100.png');
-        }
-        
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+
+        .btn {
+            display: inline-flex;
             align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
-        
-        .content img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--bg-dark);
         }
-        
-        .celebration-text p {
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--text-muted);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Gift Registry */
+        .gift-info {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gift-info p {
+            margin-bottom: 1.5rem;
+        }
+
+        .iban-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: monospace;
+            margin-top: 1.5rem;
+        }
+
+        .iban-box .label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .iban-box .value {
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            word-break: break-all;
+        }
+
+        /* Photo Gallery */
+        .gallery-intro {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-upload {
+            text-align: center;
+            padding: 3rem;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+        }
+
+        .gallery-upload h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
             margin-bottom: 1rem;
         }
-        
-        .celebration-text {
-            text-align: center;
+
+        .gallery-upload p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
         }
-        
-        button {
-            background: #800080;
-            color: white;
-            padding: 20px 40px 20px 80px;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(128,0,128,0.5);
-            border-radius: 5px;
-            background-image: url('icons/icons8-photo-gallery-100.png');
-            background-size: 40px 40px;
-            background-repeat: no-repeat;
-            background-position: 15px center;
+
+        /* Travel Info */
+        .travel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
-        
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(128,0,128,0.8);
-        }
-        
-        iframe {
-            width: 100%;
-            height: 300px;
-            border-radius: 10px;
-            border: 5px solid #800080;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
-        
+
+        /* Footer */
         footer {
-            background-color: #000;
-            color: #c0c0c0;
             text-align: center;
-            padding: 30px;
-            box-shadow: 0 -5px 10px rgba(0,0,0,0.5);
+            padding: 40px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
         }
-        
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            h1 {
-                font-size: 3rem;
-            }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer .hearts {
+            color: var(--burgundy);
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Decorative elements */
+        .decorative-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .decorative-line::before,
+        .decorative-line::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .decorative-line .icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
             .couple-photo {
-                width: 250px;
-                height: 250px;
+                width: 200px;
+                height: 200px;
             }
-            .schedule li {
-                padding-left: 80px;
+
+            .countdown-container {
+                gap: 1rem;
             }
-            .schedule::before {
-                left: 30px;
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .schedule-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .rsvp-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Leaves -->
+    <div class="leaf" style="background: #b7410e; border-radius: 0 50% 0 50%;"></div>
+    <div class="leaf" style="background: #c9a227; border-radius: 50% 0 50% 0;"></div>
+    <div class="leaf" style="background: #722f37; border-radius: 0 50% 0 50%;"></div>
+    <div class="leaf" style="background: #8b4513; border-radius: 50% 0 50% 0;"></div>
+    <div class="leaf" style="background: #c9a227; border-radius: 0 50% 0 50%;"></div>
+
+    <!-- Hero Section -->
     <header>
-        <img src="your-image.jpg" alt="Foto della coppia" class="couple-photo">
-        <div>
-            <h1>Alvise & Clarissa</h1>
-            <p class="subtitle">Amore nell'Oscurità Eterna</p>
-            <p class="date">31 Ottobre 2026</p>
+        <div class="hero-content">
+            <div class="photo-carousel">
+            <div class="carousel-track">
+                <img src="your-image.jpg" alt="Alvise & Clarissa" class="couple-photo active">
+                <img src="photos/photo1.jpg" alt="Foto 1" class="couple-photo">
+                <img src="photos/photo2.jpg" alt="Foto 2" class="couple-photo">
+                <img src="photos/photo3.jpg" alt="Foto 3" class="couple-photo">
+                <img src="photos/photo4.jpg" alt="Foto 4" class="couple-photo">
+                <img src="photos/photo5.jpg" alt="Foto 5" class="couple-photo">
+                <img src="photos/photo6.jpg" alt="Foto 6" class="couple-photo">
+                <img src="photos/photo7.jpg" alt="Foto 7" class="couple-photo">
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+            <h1>
+                <span class="ampersand">&</span>
+                Alvise <span style="font-weight: 300;">&</span> Clarissa
+            </h1>
+            <p class="subtitle">Dove l'amore incontra l'eternità</p>
+            <div class="date-display">
+                <span class="day">07</span>
+                <div class="date-details">
+                    <div class="month">NOVEMBRE</div>
+                    <div class="year">MMXXVI</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>↓ Scorri per scoprire</span>
         </div>
     </header>
-    
-    <section>
-        <h2>La Celebrazione</h2>
-        <div class="content">
-            <img src="your-image2.jpg" alt="Luogo">
-            <div class="celebration-text">
-                <p>La nostra cerimonia e festa saranno un'esperienza lontana dalle tradizioni convenzionali, ma che ci rappresenta appieno.</p>
-                <p>Siamo felici di condividere questo momento speciale con la nostra famiglia e i nostri amici più cari. Un ringraziamento di cuore a tutti coloro che ci accompagneranno in questo giorno.</p>
-                <p>Vi preghiamo di confermare la vostra presenza entro i primi di settembre.</p>
-                <button>CONDIVIDI LE FOTO DELLA CERIMONIA</button>
+
+    <!-- Countdown -->
+    <section id="countdown" class="fade-in">
+        <h2>Il Gran Giorno</h2>
+        <div class="section-divider"></div>
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">--</div>
+                <div class="countdown-label">Giorni</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">--</div>
+                <div class="countdown-label">Ore</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">--</div>
+                <div class="countdown-label">Minuti</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">--</div>
+                <div class="countdown-label">Secondi</div>
             </div>
         </div>
     </section>
-    
-    <section>
-        <h2>Luogo</h2>
-        <div class="content">
-            <div>
-                <p><strong>Luogo:</strong> Castello di Zumelle</p>
-                <p><strong>Indirizzo:</strong> Via San Donà 4, 32026 Borgo Valbelluna BL</p>
-                <p>Scopri la location su Google Maps:</p>
+
+    <!-- Program -->
+    <section id="program" class="fade-in">
+        <h2>Il Programma</h2>
+        <div class="section-divider"></div>
+        <ul class="schedule">
+            <li class="schedule-item">
+                <span class="schedule-time">16:30</span>
+                <div class="schedule-details">
+                    <h4>Benvenuto</h4>
+                    <p>Arrivo e accoglienza degli ospiti al Castello di Zumelle</p>
+                </div>
+            </li>
+            <li class="schedule-item">
+                <span class="schedule-time">17:00</span>
+                <div class="schedule-details">
+                    <h4>Cerimonia</h4>
+                    <p>Il nostro sì, forse</p>
+                </div>
+            </li>
+            <li class="schedule-item">
+                <span class="schedule-time">18:00</span>
+                <div class="schedule-details">
+                    <h4> Giro Libero al Castello</h4>
+                    <p>Godetevi un giro libero tra gli angoli più magici del castello!</p>
+                </div>
+            </li>
+            <li class="schedule-item">
+                <span class="schedule-time">19:00</span>
+                <div class="schedule-details">
+                    <h4>Aperitivo & Buffet</h4>
+                    <p>Brindisi e cena a buffet</p>
+                </div>
+            </li>
+            <li class="schedule-item">
+                <span class="schedule-time">21:00</span>
+                <div class="schedule-details">
+                    <h4>Torta & Musica</h4>
+                    <p>Il taglio della torta e una serata di gioia, danze e festeggiamenti</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Location -->
+    <section id="location" class="fade-in">
+        <h2>La Location</h2>
+        <div class="section-divider"></div>
+        <div class="location-grid">
+            <div class="location-info">
+                <div class="card">
+                    <div class="card-title">
+                        <svg class="card-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Castello di Zumelle
+                    </div>
+                    <br>
+                    <p><strong>Indirizzo:</strong> Via San Donà 4, 32026 Borgo Valbelluna BL</p>
+                    <p><strong>Come raggiungerci:</strong> Il castello si trova a pochi km dal centro di Borgo Valbelluna, con ampio parcheggio disponibile per gli ospiti.</p>
+                </div>
             </div>
-            <a href="https://www.google.com/maps?q=Castello+di+Zumelle" target="_blank">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.7386254767716!2d12.079231375803197!3d46.03636359508224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47790349c9d46a05%3A0x8e103dec5837706!2sCastello%20di%20Zumelle!5e0!3m2!1sit!2sit!4v1772484255943!5m2!1sit!2sit" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2769.7386254767716!2d12.079231375803197!3d46.03636359508224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47790349c9d46a05%3A0x8e103dec5837706!2sCastello%20di%20Zumelle!5e0!3m2!1sit!2sit!4v1772484255943!5m2!1sit!2sit" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- RSVP -->
+    <section id="rsvp" class="fade-in">
+        <h2>Conferma la Presenza</h2>
+        <div class="section-divider"></div>
+        <div class="gift-info" style="margin: 0 auto;">
+            <p>Non vediamo l'ora di celebrare questo giorno speciale con voi! <br>Vi chiediamo di confermare la vostra presenza entro <strong>la prima settimana di Ottobre 2026</strong>.</p>
+            <div class="rsvp-buttons">
+                <a href="https://forms.gle/rnVHToRZdSyLM9BL7" target="_blank" class="btn btn-primary">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+                    Compila il Form
+                </a>
+                <a href="#" class="btn btn-secondary" onclick="alert('Per confermare, scriveteci su WhatsApp. Grazie!'); return false;">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Oppure su WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Registry -->
+    <!-- <section id="gifts" class="fade-in">
+        <h2>Regali</h2>
+        <div class="section-divider"></div>
+        <div class="gift-info">
+            <p>La vostra presenza è il regalo più prezioso che potremmo ricevere.</p>
+            <p style="color: var(--text-muted); font-style: italic;">Se desiderat donare qualcosa per il nostro futuro insieme, ogni pensiero sarà molto gradito.</p>
+        </div>
+    </section> -->
+
+    <!-- Photo Gallery -->
+    <section id="photos" class="fade-in">
+        <h2>Galleria Foto</h2>
+        <div class="section-divider"></div>
+        <div class="gallery-intro">
+            <p>Condividete con noi i momenti speciali! Caricate le foto della giornata per riviverli insieme.</p>
+        </div>
+        <div class="gallery-upload">
+            <h3>Carica le Tue Foto</h3>
+            <p>Clicca per aggiungere le tue foto all'album condiviso!</p>
+            <a href="https://photos.app.goo.gl/1iApu1M56nscbYwF9" target="_blank" class="btn btn-primary">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                Carica Foto
             </a>
         </div>
     </section>
-    
-    <section>
-        <h2>Programma della Giornata</h2>
-        <ul class="schedule">
-            <li><strong>16:30:</strong> Arrivo Ospiti - Benvenuti e accomodatevi ai vostri posti</li>
-            <li><strong>17:00:</strong> Inizio Cerimonia - Celebriamo l'inizio del nostro amore eterno.</li>
-            <li><strong>18:00:</strong> Inizio Aperitivo + Buffet - Momenti di conversazione, brindisi e prelibatezze culinarie.</li>
-            <li><strong>21:00:</strong> Taglio della Torta - Dolce, ringraziamenti e conclusione della serata.</li>
-        </ul>
-    </section>
-    
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Alvise & Clarissa. Tutti i diritti riservati.</p>
-    </footer>
+        <div class="hearts">♥ ♥ ♥</div>
+        <p>Alvise & Clarissa &mdash; 7 Novembre 2026</p>
+        <p style="margin-top: 0.5rem; font-style: italic; color: var(--text-muted);">"Due anime che si incontrano nell'oscurità, brillano insieme per sempre."</p>
+            </footer>
+
+    <script>
+        // Countdown
+        const weddingDate = new Date('2026-11-07T16:30:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Photo Carousel - auto advance every 5 seconds
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-track .couple-photo');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }, 5000);
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
