@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The 100 Hours Project</title>
+    <meta name="description" content="100 hours. New skills. Endless experiments. A personal lab of learning challenges, progress journals and video diaries.">
+    <meta name="theme-color" content="#151419">
+    <meta property="og:title" content="The 100 Hours Project">
+    <meta property="og:description" content="100 hours. New skills. Endless experiments.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Grenze+Gotisch:wght@500;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to content</a>
+    <div id="witch-bar" class="witch-bar" hidden></div>
+    <nav class="site-nav" aria-label="Main">
+      <a class="site-nav__brand" href="#/">
+        <svg class="site-nav__logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-ghost"/></svg>
+        <span>The 100 Hours Project</span>
+      </a>
+    </nav>
+    <main id="app" tabindex="-1"></main>
+    <footer class="site-footer">
+      <svg class="site-footer__art" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-cat"/></svg>
+      <p>The 100 Hours Project · a personal laboratory where I experiment, learn, fail and get better.</p>
+      <p class="site-footer__small">No ghosts were harmed in the making of this site.</p>
+    </footer>
+    <div class="mascot">
+      <div id="mascot-bubble" class="mascot__bubble" role="status" hidden>
+        <p></p>
+        <button id="mascot-close" type="button" class="icon-button icon-button--tiny" aria-label="Close the ghost message">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <button id="mascot-button" type="button" class="mascot__button" aria-label="Ask Boo the ghost for a message" aria-expanded="false" aria-controls="mascot-bubble"></button>
+    </div>
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+    <div id="floating-tip" class="floating-tip" role="tooltip" hidden></div>
+    <dialog id="modal" class="modal" aria-labelledby="modal-title"></dialog>
+    <dialog id="lightbox" class="lightbox" aria-label="Photo viewer"></dialog>
+  </body>
+</html>

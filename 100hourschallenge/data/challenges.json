@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "schema": 1,
+    "revision": 0,
+    "exportedAt": null,
+    "updatedAt": "2026-11-19T00:00:00.000Z"
+  },
+  "settings": {
+    "neglectDays": 7
+  },
+  "challenges": [
+    {
+      "id": "learning-to-tattoo",
+      "title": "Learning to Tattoo",
+      "category": "Creative Skills",
+      "goal": "Dedicate 100 hours to learning tattoo techniques, starting from zero experience.",
+      "description": "I can't draw, I have absolutely no experience, and I have decided that learning how to tattoo is a perfectly reasonable idea. Let's see what happens after 100 hours.",
+      "cover": "svg:tattoo",
+      "colorSlot": 3,
+      "status": "active",
+      "archived": false,
+      "targetHours": 100,
+      "startDate": "2026-11-19",
+      "completedDate": null,
+      "createdAt": "2026-11-19T00:00:00.000Z",
+      "history": [
+        {
+          "status": "active",
+          "date": "2026-11-19"
+        }
+      ],
+      "sessions": [],
+      "diary": [],
+      "customMilestones": [],
+      "learned": [],
+      "final": null,
+      "resources": [
+        {
+          "id": "resource-tattooing101-lines",
+          "type": "video",
+          "title": "How To Tattoo Perfect Lines",
+          "url": "https://www.youtube.com/watch?v=pIz45IAbq_E",
+          "note": "Tattooing 101. Linework is the first boss: watch this before touching the machine."
+        },
+        {
+          "id": "resource-tattooing101-breakdown",
+          "type": "video",
+          "title": "How To Do a PERFECT Tattoo! Simple Breakdown & Demonstration",
+          "url": "https://www.youtube.com/watch?v=yVDXAtmC5Ok",
+          "note": "Tattooing 101. A full tattoo broken down step by step, from start to finish."
+        },
+        {
+          "id": "resource-tattooing101-channel",
+          "type": "channel",
+          "title": "Tattooing 101",
+          "url": "https://www.youtube.com/@Tattooing101",
+          "note": "Beginner tutorials on linework, shading and practising on fake skin."
+        },
+        {
+          "id": "resource-benfisher-channel",
+          "type": "channel",
+          "title": "Ben Fisher",
+          "url": "https://www.youtube.com/@BenFisherOfficial",
+          "note": "UK tattoo artist: how-to videos, tips for beginners and aftercare."
+        },
+        {
+          "id": "resource-tattooing101-guide",
+          "type": "guide",
+          "title": "How to Become a Tattoo Artist: The Complete Guide",
+          "url": "https://tattooing101.com/learn/category/guides/become-a-tattoo-artist/",
+          "note": "The big-picture roadmap: drawing, practice skin, apprenticeship, portfolio."
+        },
+        {
+          "id": "resource-wormhole-practice-skin",
+          "type": "guide",
+          "title": "How to use tattoo practice skins",
+          "url": "https://wormholetattoo.com/blogs/news/how-to-use-tattoo-practice-skins-wormhole-tattoo-artist-guide",
+          "note": "Fake skin will be my victim for a long time, so better learn to use it properly."
+        },
+        {
+          "id": "resource-tatsoul-online-risks",
+          "type": "guide",
+          "title": "The risks of learning to tattoo online",
+          "url": "https://www.tatsoul.com/blogs/news/the-risks-of-learning-to-tattoo-online",
+          "note": "A reality check: tutorials often skip hygiene, and they do not replace feedback from real artists."
+        },
+        {
+          "id": "resource-iss-sicurezza",
+          "type": "safety",
+          "title": "Tatuarsi in sicurezza (ISS EpiCentro)",
+          "url": "https://www.epicentro.iss.it/tatuaggi/sicurezza-prevenzione",
+          "note": "Hygiene, risks and prevention from the Italian National Institute of Health."
+        },
+        {
+          "id": "resource-iss-normativa",
+          "type": "safety",
+          "title": "Tattoo rules in Italy (ISS EpiCentro)",
+          "url": "https://www.epicentro.iss.it/tatuaggi/normativa",
+          "note": "To tattoo real people in Italy you need a regional hygiene and safety course. Fake skin only until then!"
+        }
+      ]
+    }
+  ]
+}
