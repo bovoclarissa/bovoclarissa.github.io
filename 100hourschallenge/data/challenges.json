@@ -1,9 +1,9 @@
 {
   "meta": {
     "schema": 1,
-    "revision": 0,
-    "exportedAt": null,
-    "updatedAt": "2026-11-19T00:00:00.000Z"
+    "revision": 1,
+    "exportedAt": "2026-11-23T17:21:17.355Z",
+    "updatedAt": "2026-11-23T17:19:47.342Z"
   },
   "settings": {
     "neglectDays": 7
@@ -29,11 +29,20 @@
           "date": "2026-11-19"
         }
       ],
-      "sessions": [],
+      "sessions": [
+        {
+          "id": "session-mwtj6npqp7ev7",
+          "createdAt": "2026-11-23T17:19:47.342Z",
+          "date": "2026-11-23",
+          "minutes": 120,
+          "did": "I started by learning some technical terms and the main tattoo styles.",
+          "difficulties": "none",
+          "notes": "None of the main styles reflects the one I would like to adopt."
+        }
+      ],
       "diary": [],
       "customMilestones": [],
       "learned": [],
-      "final": null,
       "resources": [
         {
           "id": "resource-tattooing101-lines",
@@ -98,7 +107,8 @@
           "url": "https://www.epicentro.iss.it/tatuaggi/normativa",
           "note": "To tattoo real people in Italy you need a regional hygiene and safety course. Fake skin only until then!"
         }
-      ]
+      ],
+      "final": null
     }
   ]
 }
